@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wedding Seating Plan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Playfair Display', serif;
+      background-color: #fff;
+      color: #000;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      color: #000;
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.5em;
+    }
+
+    .search-container {
+      margin: 40px 0;
+      text-align: center;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      font-size: 1.2em;
+      width: 300px;
+      border: 2px solid #000;
+      border-radius: 5px;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 20px;
+      text-align: center;
+      font-size: 0.9em;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Wedding Seating Plan</h1>
+  </header>
+
+  <div class="search-container">
+    <input type="text" id="guestName" placeholder="Enter your name..." oninput="findSeat()" />
+    <div class="result" id="result"></div>
+  </div>
+
+  <footer>
+    &copy; 2025 Joe @ Rocket Wedding
+  </footer>
+
+  <script>
+    const seatingPlan = {
+      "Alice Johnson": "Table 01",
+      "Bob Smith": "Table 02",
+      "Charlie Rose": "Table 03",
+      "Diana Prince": "Table 04"
+    };
+
+    function findSeat() {
+      const nameInput = document.getElementById("guestName").value.trim();
+      const resultDiv = document.getElementById("result");
+
+      if (nameInput.length === 0) {
+        resultDiv.textContent = "";
+        return;
+      }
+
+      const table = seatingPlan[nameInput];
+      if (table) {
+        resultDiv.textContent = `Hi ${nameInput}, you're seated at ${table}.`;
+      } else {
+        resultDiv.textContent = `Sorry, we couldn't find your name.`;
+      }
+    }
+  </script>
+</body>
+</html>
