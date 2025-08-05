@@ -7,103 +7,230 @@
   <title>Wedding Guest List Editor</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
       background-color: #fff;
       color: #000;
-      padding: 20px;
+      margin: 0;
+      padding: 0;
     }
-    h1 {
+    header {
+      background-color: #000;
+      color: #fff;
+      padding: 20px;
       text-align: center;
     }
-    form {
-      margin-bottom: 20px;
+    nav {
+      background-color: #222;
+      padding: 10px;
+      text-align: center;
     }
-    input, select {
-      padding: 8px;
-      margin: 5px;
-      font-size: 1em;
+    nav a {
+      color: #ccc;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
     }
-    button {
-      padding: 8px 12px;
-      font-size: 1em;
-      cursor: pointer;
+    nav a:hover {
+      color: #fff;
     }
-    table {
-      width: 100%;
-      border-collapse: collapse;
+    .container {
+      padding: 20px;
+      text-align: center;
+    }
+    .table-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 15px;
+      justify-items: center;
       margin-top: 20px;
     }
-    th, td {
-      border: 1px solid #000;
-      padding: 8px;
-      text-align: left;
+    .table {
+      width: 80px;
+      height: 80px;
+      border: 2px solid #000;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, #eee, #ccc);
+      cursor: pointer;
     }
-    .actions button {
-      margin-right: 5px;
+    .form-section {
+      margin-top: 30px;
+    }
+    input, select {
+      padding: 10px;
+      margin: 5px;
+      font-size: 1em;
+      border: 1px solid #000;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      background: linear-gradient(145deg, #eee, #ccc);
+      border: 1px solid #000;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .guest-list {
+      margin-top: 20px;
+      text-align: left;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .admin-login {
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-  <h1>Wedding Guest List Editor</h1>
-  <form id="guestForm">
-    <input type="text" id="guestName" placeholder="Guest Name" required />
-    <input type="text" id="guestTable" placeholder="Table Number" required />
-    <button type="submit">Add / Update Guest</button>
-  </form>
-
-  <table id="guestTableList">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Table</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-
+  <header>
+    <h1>Wedding Guest List Editor</h1>
+  </header>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Seating Plan</a>
+    <a href="#">Guest Editor</a>
+  </nav>
+  <div class="container">
+    <div class="admin-login">
+      <input type="password" id="adminPassword" placeholder="Enter admin password" />
+      <button onclick="checkAdmin()">Login</button>
+    </div>
+    <div id="editorSection" style="display:none;">
+      <div class="form-section">
+        <input type="text" id="guestName" placeholder="Guest Name" />
+        <select id="tableNumber">
+          <option value="">Select Table</option>
+          <option value="Table 01">Table 01</option>
+          <option value="Table 02">Table 02</option>
+          <option value="Table 03">Table 03</option>
+          <option value="Table 04">Table 04</option>
+          <option value="Table 05">Table 05</option>
+          <option value="Table 06">Table 06</option>
+          <option value="Table 07">Table 07</option>
+          <option value="Table 08">Table 08</option>
+          <option value="Table 09">Table 09</option>
+          <option value="Table 10">Table 10</option>
+          <option value="Table 11">Table 11</option>
+          <option value="Table 12">Table 12</option>
+          <option value="Table 13">Table 13</option>
+          <option value="Table 14">Table 14</option>
+          <option value="Table 15">Table 15</option>
+          <option value="Table 16">Table 16</option>
+          <option value="Table 17">Table 17</option>
+          <option value="Table 18">Table 18</option>
+          <option value="Table 19">Table 19</option>
+          <option value="Table 20">Table 20</option>
+          <option value="Table 21">Table 21</option>
+          <option value="Table 22">Table 22</option>
+          <option value="Table 23">Table 23</option>
+          <option value="Table 24">Table 24</option>
+          <option value="Table 25">Table 25</option>
+          <option value="Table 26">Table 26</option>
+          <option value="Table 27">Table 27</option>
+          <option value="Table 28">Table 28</option>
+          <option value="Table 29">Table 29</option>
+          <option value="Table 30">Table 30</option>
+          <option value="Table 31">Table 31</option>
+          <option value="Table 32">Table 32</option>
+          <option value="Table 33">Table 33</option>
+          <option value="Table 34">Table 34</option>
+        </select>
+        <button onclick="addGuest()">Add Guest</button>
+      </div>
+      <div class="guest-list" id="guestList"></div>
+      <div class="table-grid">
+        <div class="table" onclick="viewTable('Table 01')">Table 01</div>
+        <div class="table" onclick="viewTable('Table 02')">Table 02</div>
+        <div class="table" onclick="viewTable('Table 03')">Table 03</div>
+        <div class="table" onclick="viewTable('Table 04')">Table 04</div>
+        <div class="table" onclick="viewTable('Table 05')">Table 05</div>
+        <div class="table" onclick="viewTable('Table 06')">Table 06</div>
+        <div class="table" onclick="viewTable('Table 07')">Table 07</div>
+        <div class="table" onclick="viewTable('Table 08')">Table 08</div>
+        <div class="table" onclick="viewTable('Table 09')">Table 09</div>
+        <div class="table" onclick="viewTable('Table 10')">Table 10</div>
+        <div class="table" onclick="viewTable('Table 11')">Table 11</div>
+        <div class="table" onclick="viewTable('Table 12')">Table 12</div>
+        <div class="table" onclick="viewTable('Table 13')">Table 13</div>
+        <div class="table" onclick="viewTable('Table 14')">Table 14</div>
+        <div class="table" onclick="viewTable('Table 15')">Table 15</div>
+        <div class="table" onclick="viewTable('Table 16')">Table 16</div>
+        <div class="table" onclick="viewTable('Table 17')">Table 17</div>
+        <div class="table" onclick="viewTable('Table 18')">Table 18</div>
+        <div class="table" onclick="viewTable('Table 19')">Table 19</div>
+        <div class="table" onclick="viewTable('Table 20')">Table 20</div>
+        <div class="table" onclick="viewTable('Table 21')">Table 21</div>
+        <div class="table" onclick="viewTable('Table 22')">Table 22</div>
+        <div class="table" onclick="viewTable('Table 23')">Table 23</div>
+        <div class="table" onclick="viewTable('Table 24')">Table 24</div>
+        <div class="table" onclick="viewTable('Table 25')">Table 25</div>
+        <div class="table" onclick="viewTable('Table 26')">Table 26</div>
+        <div class="table" onclick="viewTable('Table 27')">Table 27</div>
+        <div class="table" onclick="viewTable('Table 28')">Table 28</div>
+        <div class="table" onclick="viewTable('Table 29')">Table 29</div>
+        <div class="table" onclick="viewTable('Table 30')">Table 30</div>
+        <div class="table" onclick="viewTable('Table 31')">Table 31</div>
+        <div class="table" onclick="viewTable('Table 32')">Table 32</div>
+        <div class="table" onclick="viewTable('Table 33')">Table 33</div>
+        <div class="table" onclick="viewTable('Table 34')">Table 34</div>
+      </div>
+    </div>
+  </div>
   <script>
-    const guestList = {};
+    const adminPassword = "wedding2025";
+    const guestData = {};
 
-    function renderTable() {
-      const tbody = document.querySelector("#guestTableList tbody");
-      tbody.innerHTML = "";
-      for (const name in guestList) {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${name}</td>
-          <td>${guestList[name]}</td>
-          <td class="actions">
-            <button onclick="editGuest('${name}')">Edit</button>
-            <button onclick="removeGuest('${name}')">Remove</button>
-          </td>
-        `;
-        tbody.appendChild(row);
+    function checkAdmin() {
+      const input = document.getElementById("adminPassword").value;
+      if (input === adminPassword) {
+        document.getElementById("editorSection").style.display = "block";
+      } else {
+        alert("Incorrect password.");
       }
     }
 
-    function editGuest(name) {
-      document.getElementById("guestName").value = name;
-      document.getElementById("guestTable").value = guestList[name];
-    }
-
-    function removeGuest(name) {
-      delete guestList[name];
-      renderTable();
-    }
-
-    document.getElementById("guestForm").addEventListener("submit", function(e) {
-      e.preventDefault();
+    function addGuest() {
       const name = document.getElementById("guestName").value.trim();
-      const table = document.getElementById("guestTable").value.trim();
-      if (name && table) {
-        guestList[name] = table;
-        document.getElementById("guestForm").reset();
-        renderTable();
+      const table = document.getElementById("tableNumber").value;
+      if (!name || !table) {
+        alert("Please enter both name and table.");
+        return;
       }
-    });
+      if (!guestData[table]) guestData[table] = [];
+      guestData[table].push(name);
+      updateGuestList();
+      saveToGoogleSheet(name, table);
+    }
 
-    renderTable();
+    function updateGuestList() {
+      const listDiv = document.getElementById("guestList");
+      listDiv.innerHTML = "<h3>Guest List</h3>";
+      for (const table in guestData) {
+        listDiv.innerHTML += `<strong>${table}</strong>: ${guestData[table].join(", ")}<br/>`;
+      }
+    }
+
+    function viewTable(table) {
+      if (guestData[table]) {
+        alert(`${table} Guests: ${guestData[table].join(", ")}`);
+      } else {
+        alert(`${table} has no guests assigned yet.`);
+      }
+    }
+
+    function saveToGoogleSheet(name, table) {
+      fetch("YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL", {
+        method: "POST",
+        body: JSON.stringify({ name: name, table: table }),
+        headers: { "Content-Type": "application/json" }
+      }).then(response => response.text())
+        .then(data => console.log("Saved:", data))
+        .catch(error => console.error("Error:", error));
+    }
   </script>
 </body>
 </html>
